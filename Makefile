@@ -23,20 +23,22 @@ ifeq ($(ARCH),x86_64)
 	NPC_ARCH:=amd64
 endif
 ifeq ($(ARCH),arm)
+	NPC_ARCH:=arm_v7
+	ifeq ($(BOARD),bcm53xx)
+		NPC_ARCH:=arm_v6
+	endif
 	ifeq ($(BOARD),kirkwood)
 		NPC_ARCH:=arm_v5
-	else ifeq ($(BOARD),bcm53xx)
-		NPC_ARCH:=arm_v6
-	else
-		NPC_ARCH:=arm_v7
+	endif
 endif
 ifeq ($(ARCH),aarch64)
 	NPC_ARCH:=arm64
 endif
 
+NPS_URL=https://github.com/yisier/nps
 PKG_LICENSE:=Apache-2.0
 PKG_BUILD_DIR:=$(BUILD_DIR)/npc-$(PKG_VERSION)
-PKG_URL:=https://github.com/yisier/nps/releases/download/v$(PKG_VERSION)/linux_$(NPC_ARCH)_client.tar.gz
+PKG_URL:=$(NPS_URL)/releases/download/v$(PKG_VERSION)/linux_$(NPC_ARCH)_client.tar.gz
 PKG_FILE:=nps_linux_$(NPC_ARCH)_client-$(PKG_VERSION).tar.gz
 
 include $(INCLUDE_DIR)/package.mk
@@ -46,7 +48,7 @@ define Package/$(PKG_NAME)
 	CATEGORY:=Network
 	TITLE:=NPC Client
 	DEPENDS:=
-	URL:=https://github.com/ehang-io/nps/releases
+	URL:=$(NPS_URL)/releases
 endef
 
 define Package/$(PKG_NAME)/description
