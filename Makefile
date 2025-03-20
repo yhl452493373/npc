@@ -35,7 +35,7 @@ ifeq ($(ARCH),aarch64)
 	NPC_ARCH:=arm64
 endif
 
-NPS_URL=https://github.com/yisier/nps
+NPS_URL=https://github.com/djylb/nps
 PKG_LICENSE:=Apache-2.0
 PKG_BUILD_DIR:=$(BUILD_DIR)/npc-$(PKG_VERSION)
 PKG_URL:=$(NPS_URL)/releases/download/v$(PKG_VERSION)/linux_$(NPC_ARCH)_client.tar.gz
